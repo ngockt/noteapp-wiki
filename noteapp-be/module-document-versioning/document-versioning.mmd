@@ -1,0 +1,75 @@
+flowchart TD
+    subgraph document-v1.0.0[Document version 1.0.0]
+        english-v1.0.0-->|Users switch to new languages for the first time|vietnamese-v1.0.0
+        english-v1.0.0-->|Users switch to new languages for the first time|japanese-v1.0.0
+    end
+    empty[Node without documents] -->|Init first version with English content|document-v1.0.0[Document version 1.0.0]
+
+
+    subgraph cloning-v1.0.0[Users' clone Documents]
+        english-v1.0.0-clone-->|make changes|english-v1.0.0-feature
+        english-v1.0.0-feature-->|other users make additional changes|english-v1.0.0-additional-update
+        vietnamese-v1.0.0-clone-->|make changes|vietnamese-v1.0.0-wording
+        japanese-v1.0.0-clone-->|make changes|japanese-v1.0.0-wording
+    end
+    document-v1.0.0-->cloning-v1.0.0
+
+    subgraph extract-changes-v1.0.0[Extract changes]
+        change1-v1.0.0[Change 1 - vietnamese wording]
+        change2-v1.0.0[Change 2 - japanese wording]
+        changes-v1.0.0[Change 3,4,5 - feature]
+
+    end
+    cloning-v1.0.0-->|Users publish changes|extract-changes-v1.0.0
+
+    subgraph selected-changes-v1.0.0[Selected changes]
+        change1-v1.0.0-->selected-change-1-v1.0.0
+        change2-v1.0.0-->selected-change-2-v1.0.0
+    end
+    extract-changes-v1.0.0-->|Community votes to select minor changes to the next version|selected-changes-v1.0.0
+    document-v1.0.0-->document-combined-v1.0.0[document-v1.0.0 + changes]
+    selected-changes-v1.0.0-->|update changes by AI and reviewer|document-combined-v1.0.0
+
+    subgraph document-v1.0.1[Document version 1.0.1 minor updates]
+        vietnamese-v1.0.1
+        japanese-v1.0.1
+        english-v1.0.1-->|Users switch to new languages for the first time|russian-v1.0.1
+    end
+    document-combined-v1.0.0-->document-v1.0.1
+    document-v1.0.1-->|notify new update to user who clone this document| user-edited-content-v1.0.0[User edited documents]
+    user-edited-content-v1.0.0-->|merge or switch to latest update|user-edited-content-v1.0.0
+
+    %% next update
+    subgraph cloning-v1.0.1[Users' clone Documents]
+        english-v1.0.1-clone-->|make changes|english-v1.0.1-update
+        vietnamese-v1.0.1-clone-->|make changes|vietnamese-v1.0.1-update
+        russian-v1.0.1-clone-->|make changes|russian-v1.0.1-update
+        russian-v1.0.1-update-->|other users make additional changes|russian-v1.0.1-additional-update
+    end
+    document-v1.0.1-->cloning-v1.0.1
+
+    subgraph extract-changes-v1.0.1[Extract changes]
+        direction BT
+        change1-v1.0.1[Change 1 - english new features]
+        change2-v1.0.1[Change 2 - russian wording]
+        changes-v1.0.1[Change 3,4,5,...]
+        changes-v1.0.0-->previous-changes-v1.0.0
+    end
+    cloning-v1.0.1-->|Users publish changes|extract-changes-v1.0.1
+
+
+    subgraph selected-changes-v1.0.1[Selected changes]
+        change1-v1.0.1-->selected-change-1-v1.0.1
+        previous-changes-v1.0.0-->selected-change-2-v1.0.1
+    end
+    extract-changes-v1.0.1-->|Community votes to select major changes to the next version|selected-changes-v1.0.1
+    document-v1.0.1-->document-combined-v1.0.1[document-v1.0.1 + changes]
+    selected-changes-v1.0.1-->|update changes by AI and reviewer|document-combined-v1.0.1
+
+    subgraph document-v1.1.0[Document version 1.0.1]
+        english-v1.1.0
+    end
+    document-combined-v1.0.1-->document-v1.1.0
+    document-v1.1.0-->|notify new update to user who clone this document| user-edited-content-v1.0.1[User edited documents]
+    user-edited-content-v1.0.1-->|merge or switch to latest update|user-edited-content-v1.0.1
+

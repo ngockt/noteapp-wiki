@@ -1,0 +1,36 @@
+
+flowchart LR
+
+    subgraph languages
+        l1[id=l1,code=en,name=English]    
+        l2[id=l2,code=vi,name=Vietnamese]    
+    end
+    subgraph documents
+        d1[id=d1,user=AI]
+    end
+
+    subgraph document_version
+        dv1[id=dv1,user=AI,document_id=d1,version=v1]
+        dv2[id=dv2,user=AI,document_id=d1,version=v2]
+    end
+
+    subgraph blocks
+        b1[id=b1,sequence=1,document_version_id=dv1]
+        b2[id=b2,sequence=2,document_version_id=dv1]
+    end
+
+    subgraph block_contents
+        bc1[id=bc1,block_id=b1,language_id=l1,content=block-1-content-en]
+        bc2[id=bc2,block_id=b1,language_id=l2,content=block-1-content-vi]
+
+    end
+
+    dv1-->d1
+    dv2-->d1
+    b1-->dv1
+    b2-->dv1
+    bc1-->b1
+    bc2-->b1
+    %% bc1-->l1
+    %% bc2-->l2
+    

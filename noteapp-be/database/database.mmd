@@ -1,0 +1,47 @@
+erDiagram
+    LANGUAGES {
+        int id PK
+        string code
+        string name
+    }
+    DOCUMENTS {
+        int id PK
+    }
+    DOCUMENT_VERSIONS {
+        int id PK
+        int document_id FK
+        int version
+    }
+    DOCUMENT_CONTENTS {
+        int id PK
+        int document_version_id FK
+        int language_id FK
+    }
+    BLOCKS {
+        int id PK
+        int sequence
+        int document_version_id FK
+    }
+    BLOCK_CONTENTS {
+        int id PK
+        int block_id FK
+        int parent_id 
+    }
+
+    DOCUMENT_CHANGES {
+        int id PK
+        int document_version_src_id FK
+        int document_version_dst_id FK
+        str text
+    }
+    
+    USERS {
+        int id PK
+        string username
+        string prefer_language_id FK
+    }
+
+    LANGUAGES ||--o{ BLOCK_CONTENTS : "has"
+    DOCUMENTS ||--o{ DOCUMENT_VERSIONS : "has"
+    DOCUMENT_VERSIONS ||--o{ BLOCKS : "contains"
+    BLOCKS ||--o{ BLOCK_CONTENTS : "contains"

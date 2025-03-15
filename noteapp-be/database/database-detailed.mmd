@@ -1,0 +1,35 @@
+
+graph LR
+    subgraph languages
+        language.id[id]
+        language.code[code]
+        language.name[name]
+
+    end
+    subgraph documents
+        document_id[id]
+    end
+
+    subgraph document_versions
+        document_version.id[id]
+        document_version.document_id[document_id]
+        document_version.version[version]
+    end
+
+    subgraph blocks
+        block.id[id]
+        block.sequence[sequence]
+        block.document_version_id[document_version_id]
+    end
+
+    subgraph block_contents
+        block_content.id[id]
+        block_content.block_id[block_id]
+        block_content.language_id[language_id]
+        block_content.content[content]
+    end
+
+    document_id <--> document_version.document_id
+    document_version.id <--> block.document_version_id
+    block.id <--> block_content.block_id
+    language.id <--> block_content.language_id

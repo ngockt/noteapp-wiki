@@ -1,0 +1,93 @@
+
+flowchart LR 
+    subgraph languages
+        l1[id=l1,code=en,name=English]    
+        l2[id=l2,code=vi,name=Vietnamese]    
+    end
+    
+    subgraph graph_version
+        gv1[id=gv1,version=v1.0.0,user=AI]
+        gv2[id=gv2,version=v2,user=AI]
+    end
+
+    subgraph documents
+        d1[id=d1,user=AI]
+        d2[id=d2,user=ktn]
+    end
+
+    subgraph document_version_map
+        dvm1[id=dvm1,graph_id=gv1,document_version_id=dv1,user=AI]
+        dvm2[id=dvm2,graph_id=gv2,document_version_id=dv2,user=AI]
+    end
+
+    subgraph document_version
+        dv1[id=dv1,user=AI,document_id=d1,version=v1]
+        dv2[id=dv2,user=AI,document_id=d1,version=v2]
+    end
+
+    subgraph block_map
+        bm1[id=bm1,block_id=b1,document_version_id=dv1,user=AI,sequence=1]
+        bm2[id=bm2,block_id=b2,document_version_id=dv1,user=AI,sequence=2]
+        bm3[id=bm3,block_id=b1,document_version_id=dv2,user=AI,sequence=2]
+        bm4[id=bm4,block_id=b2,document_version_id=dv2,user=AI,sequence=1]
+    end
+    
+    subgraph blocks
+        b1[id=b1]
+        b2[id=b2]
+    end
+
+    subgraph block_contents
+        bc1[id=bc1,block_id=b1,language_id=l1,content=block-1-content-en,user=AI]
+        bc2[id=bc2,block_id=b1,language_id=l2,content=block-1-content-vi,user=AI]
+        bc3[id=bc3,block_id=b2,language_id=l1,content=block-1-content-en,user=AI]
+        bc4[id=bc4,block_id=b2,language_id=l2,content=block-1-content-vi,user=AI]
+    end
+
+
+    subgraph node_map
+        nm1[id=nm1,graph_id=gv1,node_id=n1,user=AI]
+        nm2[id=nm2,graph_id=gv1,node_id=n2,user=AI]
+    end
+
+    subgraph nodes
+        n1[id=n1,tag=linear-algebra,name=Linear Algebra,category=subject,user=AI]
+        n2[id=n2,tag=vectors,name=Vectors,category=topic,user=AI]
+    end
+
+
+    subgraph edge_map
+    em1[id=ne1,graph_id=gv1,edge_id=e1,user=AI]
+    end
+
+    subgraph edges
+    e1[id=e1,category=contains,src_node_id=n1,dest_node_id=n2,user=AI]
+    end
+
+
+    %% e1-->n1
+    %% e1-->n2
+    %% nm1-->n1
+    %% nm1-->gv1
+    %% nm2-->n2
+    %% nm2-->gv1
+    %% em1-->e1
+    %% em1-->gv1
+    %% dvm1-->gv1
+    %% dvm1-->dv1
+    %% dvm2-->gv2
+    %% dvm2-->dv2
+    %% bm1-->dv1
+    %% bm1-->b1
+    %% bm2-->b2
+    %% bm2-->dv1
+    %% bc1-->b1
+    %% bc2-->b1
+    %% bc3-->b2
+    %% bc4-->b2
+    %% dv1-->d1
+    %% dv2-->d1
+    %% bm3-->dv2
+    %% bm3-->b1
+    %% bm4-->dv2
+    %% bm4-->b2
