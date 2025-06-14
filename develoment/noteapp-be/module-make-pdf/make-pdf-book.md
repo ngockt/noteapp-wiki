@@ -62,3 +62,8 @@ graph LR
     class Collection,Book,Chapter,Section,Page,Card,Component,md_text,audio,video,mermaid,QA C;
 
 ```
+
+
+
+
+---- make a google extension into store to save content in web page
